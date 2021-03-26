@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+# Other files
+data.py
+docker-compose.yml
+docker-file-y
+model.pkl
+data-*

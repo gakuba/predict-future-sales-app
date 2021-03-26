@@ -1,0 +1,9 @@
+FROM python:3.7.10-stretch
+
+WORKDIR /app
+# COPY requirements.txt ./
+# RUN pip install torch
+# RUN pip install fastai
+
+COPY . .
+# CMD [ "python", "./app.py" ]
