@@ -25,6 +25,11 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
+    gsutil cp gs://facileai-dev-kubeflowpipelines-default/staging/model/model.pkl .
+    gsutil cp gs://facileai-dev-kubeflowpipelines-default/staging/model/model.pkl .
+  displayName: 'Download model & data-proc'
+
+- script: |
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
