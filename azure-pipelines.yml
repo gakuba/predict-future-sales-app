@@ -53,7 +53,7 @@ steps:
   displayName: 'gsutil download data-proc-obj.pkl'
 
 - script: |
-    ls -a .
+    ls -l .
   displayName: 'List files'
 
 - script: |
