@@ -24,15 +24,37 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
 
-  - task: DownloadSecureFile@1
-      name: serviceAccount
-      inputs:
-        secureFile: 'gcs-service-account.json'
+- task: GoogleCloudSdkInstaller@0
+  inputs:
+    version: '306.0.0'
+
+- task: DownloadSecureFile@1
+  name: gcsServiceAccount
+  displayName: 'Download GCS Service Account'
+  inputs:
+    secureFile: 'gcs-service-account.json'
+
+- task: GcloudRunner@0
+  inputs:
+    command: 'auth activate-service-account'
+    arguments: '--key-file $(gcsServiceAccount.secureFilePath)'
+  displayName: 'gcloud auth activate-service-account'
+
+- task: GsutilRunner@0
+  inputs:
+    command: 'cp'
+    arguments: 'gs://facileai-dev-kubeflowpipelines-default/staging/model/model.pkl .'
+  displayName: 'gsutil download model.pkl'
+  
+- task: GsutilRunner@0
+  inputs:
+    command: 'cp'
+    arguments: 'gs://facileai-dev-kubeflowpipelines-default/staging/model/data-proc-obj.pkl .'
+  displayName: 'gsutil download data-proc-obj.pkl'
 
 - script: |
-    gsutil cp gs://facileai-dev-kubeflowpipelines-default/staging/model/model.pkl .
-    gsutil cp gs://facileai-dev-kubeflowpipelines-default/staging/model/model.pkl .
-  displayName: 'Download model & data-proc'
+    ls -l .
+  displayName: 'List files'
 
 - script: |
     pip install pytest pytest-azurepipelines
