@@ -1,0 +1,6 @@
+Flask==1.1.1
+Flask-RESTful==0.3.8
+pandas==0.25.3
+xgboost==1.2.1 
+fastai==2.2.7
+gcsfs
