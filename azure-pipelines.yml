@@ -76,4 +76,4 @@ steps:
     containerRegistry: 'facileai-dev-gcr'
     repository: 'app_image'
     command: 'buildAndPush'
-    Dockerfile: 'Dockerfile'
+    Dockerfile: 'dockerfile'
