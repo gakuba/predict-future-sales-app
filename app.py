@@ -41,8 +41,10 @@ with open(PROC_FILENAME, 'rb') as preproc_file:
     preproc = pickle.load(preproc_file)
 
 
-
-
+@app.route('/health', methods=['GET'])
+def health():
+    return {}, 200
+    
 @app.route('/bulk', methods=['POST'])
 def bulk():
     uri = request.get_json().get('data_uri')
