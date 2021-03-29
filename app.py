@@ -14,13 +14,13 @@ import numpy as np
 app = Flask(__name__)
 
 # Set environment variables
-os.environ['PREDICTION_URI'] = '/Users/GAKUBA/Documents/predictions'
-os.environ['MODEL_URI'] = 'gs://facileai-dev-kubeflowpipelines-default/staging/model'
-os.environ['MODEL_NAME'] = 'model.pkl'
-os.environ['PROC_FILENAME'] = 'data-proc-obj.pkl'
+# os.environ['PREDICTIONS_URI'] = '/Users/GAKUBA/Documents/predictions'
+# os.environ['MODEL_URI'] = 'gs://facileai-dev-kubeflowpipelines-default/staging/model'
+# os.environ['MODEL_NAME'] = 'model.pkl'
+# os.environ['PROC_FILENAME'] = 'data-proc-obj.pkl'
 
-PREDICTION_URI = os.getenv('PREDICTION_URI')
-MODEL_URI = os.getenv('MODEL_URI')
+PREDICTION_URI = os.getenv('PREDICTIONS_URI')
+# MODEL_URI = os.getenv('MODEL_URI')
 MODEL_NAME = os.getenv('MODEL_NAME')
 PROC_FILENAME = os.getenv('PROC_FILENAME')
 

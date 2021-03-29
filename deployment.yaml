@@ -37,9 +37,18 @@ spec:
       labels:
         app: future-sales-prediction
     spec:
+      volumes:
+
       containers:
       - name: future-sales-prediction
         image: FUTURE_SALES_PREDICTION_IMAGE
+        env:
+        - name: PREDICTIONS_URI
+          value: "."
+        - name: MODEL_NAME
+          value: "model.pkl"
+        - name: PROC_FILENAME
+          value: "data-proc-obj.pkl"
         ports:
           - containerPort: 5000
         livenessProbe:      # Used by deployment controller
