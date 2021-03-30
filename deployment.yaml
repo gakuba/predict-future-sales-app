@@ -1,13 +1,13 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: future-sales-prediction-configmap
-data:
-  PREDICTIONS_URI: .
-  MODEL_NAME: model.pkl
-  PROC_FILENAME: data-proc-obj.pkl
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: future-sales-prediction-configmap
+# data:
+#   PREDICTIONS_URI: .
+#   MODEL_NAME: model.pkl
+#   PROC_FILENAME: data-proc-obj.pkl
  
----
+# ---
 apiVersion: v1
 kind: Service
 metadata:
@@ -50,23 +50,23 @@ spec:
       containers:
       - name: future-sales-prediction
         image: FUTURE_SALES_PREDICTION_IMAGE
-        env:
-        - name: PREDICTIONS_URI
-          valueFrom: 
-            configMapKeyRef:
-              name: future-sales-prediction-configmap
-              key: PREDICTIONS_URI
+        # env:
+        # - name: PREDICTIONS_URI
+        #   valueFrom: 
+        #     configMapKeyRef:
+        #       name: future-sales-prediction-configmap
+        #       key: PREDICTIONS_URI
 
-        - name: MODEL_NAME
-          valueFrom: 
-            configMapKeyRef:
-              name: future-sales-prediction-configmap
-              key: MODEL_NAME
-        - name: PROC_FILENAME
-          valueFrom: 
-            configMapKeyRef:
-              name: future-sales-prediction-configmap
-              key: PROC_FILENAME
+        # - name: MODEL_NAME
+        #   valueFrom: 
+        #     configMapKeyRef:
+        #       name: future-sales-prediction-configmap
+        #       key: MODEL_NAME
+        # - name: PROC_FILENAME
+        #   valueFrom: 
+        #     configMapKeyRef:
+        #       name: future-sales-prediction-configmap
+        #       key: PROC_FILENAME
         ports:
           - containerPort: 5000
         livenessProbe:      # Used by deployment controller
