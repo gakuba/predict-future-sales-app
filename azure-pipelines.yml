@@ -7,7 +7,7 @@ trigger:
 - master
 variables:
   - group: fsp-build-variables
-  - group: kbf-run-params
+  - group: kbf-run-variables
 
 pool:
   vmImage: ubuntu-latest
@@ -46,7 +46,7 @@ steps:
 - task: GsutilRunner@0
   inputs:
     command: 'cp'
-    arguments: '$(jobdir.path)/$(kbf.run.id)/model.pkl' .'
+    arguments: '$(jobdir.path)/$(kbf.run.id)/model.pkl .'
   displayName: 'gsutil download model.pkl'
   
 - task: GsutilRunner@0
