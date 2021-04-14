@@ -134,3 +134,4 @@ dockerfile-y
 model.pkl
 data-*
 gcs-service-account.json
+settings.json
