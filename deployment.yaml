@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: future-sales-prediction
+  name: covid-deaths-prediction
 spec:
   ports:
   - port: 80
@@ -9,36 +9,36 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: future-sales-prediction
+    app: covid-deaths-prediction
   type: NodePort
 
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: future-sales-prediction
+  name: covid-deaths-prediction
 spec:
   backend:
-    serviceName: future-sales-prediction
+    serviceName: covid-deaths-prediction
     servicePort: 80
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: future-sales-prediction
+  name: covid-deaths-prediction
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: future-sales-prediction
+      app: covid-deaths-prediction
   template:
     metadata:
       labels:
-        app: future-sales-prediction
+        app: covid-deaths-prediction
     spec:
       containers:
-      - name: future-sales-prediction
+      - name: covid-deaths-prediction
         image: FUTURE_SALES_PREDICTION_IMAGE
         env:
         - name: PREDICTIONS_URI
