@@ -129,7 +129,8 @@ stages:
             inputs:
               action: 'deploy'
               manifests: |
-                '$(Pipeline.Workspace)/drop/deployment.yaml'
+                $(Pipeline.Workspace)/**/drop/deployment.yaml
+                
           
 
 
