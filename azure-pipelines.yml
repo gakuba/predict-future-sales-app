@@ -9,11 +9,11 @@ variables:
   - group: fsp-build-variables
   - group: kbf-run-variables
 stages:
-- stage: Build
-  displayName: Build and Push
+- stage: 'CI'
+  displayName: 'Build and Push'
   jobs:
-  - job: Build
-    displayName: Build job
+  - job: 'Build'
+    displayName: 'Build job'
     pool:
       vmImage: ubuntu-latest
     strategy:
@@ -87,3 +87,39 @@ stages:
         repository: '$(docker.image.name)'
         command: 'buildAndPush'
         Dockerfile: 'dockerfile'
+        
+- stage: 'Dev'
+  displayName: 'Dev'
+  dependsOn: 'CI'
+  jobs:
+  - deployment:
+    displayName: 'Deployment to GCP K8s Dev'
+    environment: 'facileai-dev-k8s.default'
+    variables:
+    - group: 'fsp-release-variables'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: '$(Pipeline.Workspace)'
+              targetFiles: 'deployment.yaml'
+              encoding: 'auto'
+              writeBOM: true
+              actionOnMissing: 'warn'
+              keepToken: false
+              tokenPrefix: '{{'
+              tokenSuffix: '}}'
+              useLegacyPattern: false
+              enableTransforms: false
+              enableTelemetry: true
+              
+          - task: Kubernetes@0
+            displayName: 'kubectl apply'
+            inputs:
+              action: 'deploy'
+              manifests: |
+                $(Pipeline.Workspace)/deployment.yaml
+
+
