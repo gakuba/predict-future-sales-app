@@ -27,10 +27,10 @@ stages:
         versionSpec: '$(python.version)'
       displayName: 'Use Python $(python.version)'
 
-    - script: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-      displayName: 'Install dependencies'
+    # - script: |
+    #     python -m pip install --upgrade pip
+    #     pip install -r requirements.txt
+    #   displayName: 'Install dependencies'
 
     - task: GoogleCloudSdkInstaller@0
       inputs:
@@ -64,10 +64,10 @@ stages:
         ls -l .
       displayName: 'List files'
 
-    - script: |
-        pip install pytest pytest-azurepipelines
-        pytest
-      displayName: 'pytest'
+    # - script: |
+    #     pip install pytest pytest-azurepipelines
+    #     pytest
+    #   displayName: 'pytest'
       
     - task: CmdLine@1
       displayName: 'Lock image version in deployment.yaml'
@@ -116,11 +116,13 @@ stages:
               enableTelemetry: true
               
           - script: |
+              echo $(Pipeline.Workspace)
               pwd
               ls -l 
             displayName: 'List files'
             
           - script: |
+              echo $(Pipeline.Workspace)
               pwd
               ls -l
             displayName: 'PWD'
