@@ -121,7 +121,7 @@ stages:
           - script: |
               echo $(Pipeline.Workspace)
               pwd
-              ls -l
+              ls -l ..
             displayName: 'PWD'
 
           - task: KubernetesManifest@0
@@ -129,7 +129,7 @@ stages:
             inputs:
               action: 'deploy'
               manifests: |
-                '$(System.ArtifactsDirectory)/drop/deployment.yaml'
+                '$(System.ArtifactsDirectory)/../drop/deployment.yaml'
           
 
 
