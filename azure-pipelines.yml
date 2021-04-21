@@ -101,10 +101,10 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              artifactName: 'drop'
-              downloadPath: '$(System.ArtifactsDirectory)/drop'
+          # - task: DownloadPipelineArtifact@2
+          #   inputs:
+          #     artifactName: 'drop'
+          #     downloadPath: '$(System.ArtifactsDirectory)/drop'
           - task: replacetokens@3
             inputs:
               rootDirectory: '$(Pipeline.Workspace)/drop'
@@ -113,7 +113,7 @@ stages:
               tokenSuffix: '}}'
               
           - script: |
-              echo $(Pipeline.Workspace)
+              echo $(System.ArtifactsDirectory)
               pwd
               ls -l 
             displayName: 'List files'
@@ -129,7 +129,7 @@ stages:
             inputs:
               action: 'deploy'
               manifests: |
-                '$(Pipeline.Workspace)/drop/deployment.yaml'
+                '$(System.ArtifactsDirectory)/drop/deployment.yaml'
           
 
 
