@@ -104,7 +104,7 @@ stages:
           - task: replacetokens@3
             inputs:
               rootDirectory: '$(Pipeline.Workspace)'
-              targetFiles: 'deployment.yaml'
+              targetFiles: 'drop/deployment.yaml'
               encoding: 'auto'
               writeBOM: true
               actionOnMissing: 'warn'
@@ -120,6 +120,6 @@ stages:
             inputs:
               action: 'deploy'
               manifests: |
-                $(Pipeline.Workspace)/deployment.yaml
+                $(Pipeline.Workspace)/drop/deployment.yaml
 
 
