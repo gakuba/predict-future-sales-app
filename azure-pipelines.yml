@@ -115,11 +115,12 @@ stages:
               enableTransforms: false
               enableTelemetry: true
               
-          - task: Kubernetes@0
+          - task: KubernetesManifest@0
             displayName: 'kubectl apply'
             inputs:
               action: 'deploy'
               manifests: |
-                $(Pipeline.Workspace)/drop/deployment.yaml
+                '$(Pipeline.Workspace)/drop/deployment.yaml'
+          
 
 
