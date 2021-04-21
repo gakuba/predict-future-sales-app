@@ -129,7 +129,7 @@ stages:
             inputs:
               action: 'deploy'
               manifests: |
-                '$(System.ArtifactsDirectory)/../drop/deployment.yaml'
+                '$(Pipeline.Workspace)/drop/deployment.yaml'
           
 
 
