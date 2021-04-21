@@ -116,11 +116,13 @@ stages:
               enableTelemetry: true
               
           - script: |
-              ls -l .
+              pwd
+              ls -l 
             displayName: 'List files'
             
           - script: |
               pwd
+              ls -l
             displayName: 'PWD'
 
           - task: KubernetesManifest@0
