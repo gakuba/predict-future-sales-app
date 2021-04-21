@@ -81,12 +81,12 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'facileai-dev-gcr'
-        repository: '$(docker.image.name)'
-        command: 'buildAndPush'
-        Dockerfile: 'dockerfile'
+    # - task: Docker@2
+    #   inputs:
+    #     containerRegistry: 'facileai-dev-gcr'
+    #     repository: '$(docker.image.name)'
+    #     command: 'buildAndPush'
+    #     Dockerfile: 'dockerfile'
         
 - stage: 'Dev'
   displayName: 'Dev'
@@ -115,6 +115,14 @@ stages:
               enableTransforms: false
               enableTelemetry: true
               
+          - script: |
+              ls -l .
+            displayName: 'List files'
+            
+          - script: |
+              pwd
+            displayName: 'PWD'
+
           - task: KubernetesManifest@0
             displayName: 'kubectl apply'
             inputs:
