@@ -8,7 +8,6 @@ trigger:
 variables:
   - group: fsp-build-variables
   - group: kbf-run-variables
-  - group: 'fsp-release-variables'
 stages:
 - stage: 'CI'
   displayName: 'Build and Push'
@@ -76,12 +75,6 @@ stages:
         filename: /bin/bash
         arguments: '-c "awk ''{gsub(\"FUTURE_SALES_PREDICTION_IMAGE\", \"gcr.io/$(docker.image.name):$(Build.BuildId)\", $0); print}'' deployment.yaml > $(Build.ArtifactStagingDirectory)/deployment.yaml"'
 
-    - task: replacetokens@3
-      inputs:
-        rootDirectory: '$(Build.ArtifactStagingDirectory)'
-        targetFiles: 'deployment.yaml'
-        tokenPrefix: '{{'
-        tokenSuffix: '}}'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -102,10 +95,22 @@ stages:
   - deployment:
     displayName: 'Deployment to GCP K8s Dev'
     environment: 'facileai-dev-k8s.default'
+    variables:
+    - group: 'fsp-release-variables'
     strategy:
       runOnce:
         deploy:
           steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'drop'
+              downloadPath: '$(System.ArtifactsDirectory)/drop'
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: '$(Pipeline.Workspace)/drop'
+              targetFiles: 'deployment.yaml'
+              tokenPrefix: '{{'
+              tokenSuffix: '}}'
               
           - script: |
               echo $(Pipeline.Workspace)
