@@ -103,17 +103,10 @@ stages:
           steps:
           - task: replacetokens@3
             inputs:
-              rootDirectory: '$(Pipeline.Workspace)'
-              targetFiles: 'drop/deployment.yaml'
-              encoding: 'auto'
-              writeBOM: true
-              actionOnMissing: 'warn'
-              keepToken: false
+              rootDirectory: '$(Pipeline.Workspace)/drop'
+              targetFiles: 'deployment.yaml'
               tokenPrefix: '{{'
               tokenSuffix: '}}'
-              useLegacyPattern: false
-              enableTransforms: false
-              enableTelemetry: true
               
           - script: |
               echo $(Pipeline.Workspace)
